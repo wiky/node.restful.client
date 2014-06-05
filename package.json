@@ -1,0 +1,19 @@
+{
+    "name": "node.restful.client",
+    "version": "0.0.1",
+    "description": "nodejs restful client.",
+    "main": "index.js",
+    "homepage": "https://github.com/wiky/node.restful.client",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:wiky/node.restful.client.git"
+    },
+    "keywords": [
+        "restful",
+        "nodejs restful client"
+    ],
+    "author": {
+        "name": "wiky",
+        "email": "wiky@f2e.cc"
+    }
+}
