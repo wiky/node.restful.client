@@ -25,6 +25,7 @@ var RestClient = function(config) {
     this.api = config.api;
     this.dataType = config.dataType || 'json';
     this.beforeRequest = config.beforeRequest || null;
+    this.afterRequest = config.afterRequest || null;
 };
 
 RestClient.prototype.register = function(resourcePath, name) {
@@ -121,8 +122,13 @@ RestClient.prototype.request = function(options, callback) {
         });
 
         res.on('end', function() {
+            var afterRequest = options.afterRequest || _self.config.afterRequest,
+                args = [data, res];
+            if (typeof afterRequest === 'function') {
+                args = afterRequest() || [data, res];
+            }
             if (typeof callback === 'function') {
-                callback.call(_self, data, res);
+                callback.apply(_self, args);
             }
         });
     });
@@ -165,6 +171,10 @@ Resource.prototype.remove = function(data, callback) {
 };
 
 Resource.prototype._request = function(method, data, callback) {
+    if (typeof data === 'function') {
+        callback = data;
+        data = '';
+    }
     this.client.request({
         url: helper.resolveUrl(this.client.api, this.resourcePath),
         data: data || '',
