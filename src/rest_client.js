@@ -125,7 +125,7 @@ RestClient.prototype.request = function(options, callback) {
             var afterRequest = options.afterRequest || _self.config.afterRequest,
                 args = [data, res];
             if (typeof afterRequest === 'function') {
-                args = afterRequest() || [data, res];
+                args = afterRequest(data, res) || [data, res];
             }
             if (typeof callback === 'function') {
                 callback.apply(_self, args);
